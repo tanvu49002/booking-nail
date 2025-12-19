@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+
+@theme inline {
+  --color-background: var(--background);
+}
+
+:root {
+  --color-green-50: #f0fdf4;
+  --color-green-500: #22c55e;
+  --background: #fff7ef;
+  --card: #ffffff;
+  --popover: #ffffff;
+  --primary-foreground: #ffffff;
+  --muted-foreground: #6b7280;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --sidebar: #ffffff;
+  --sidebar-primary-foreground: #ffffff;
+
+}
+
+html,
+body {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(1200px 700px at 0% -10%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 70%),
+    linear-gradient(90deg, #fff7ef 0%, #f3dbc0 100%);
+  background-repeat: no-repeat, no-repeat;
+  background-size: 140% 140%, 100% 100%;
+  background-position: left top, center center;
+  min-height: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.elegant-calendar {
+  --calendar-border: rgba(177, 137, 93, 0.35);
+  --calendar-accent: #dba357;
+  --calendar-accent-soft: rgba(219, 163, 87, 0.18);
+  --calendar-text: #3a2d20;
+}
+
+.elegant-calendar.ant-picker-calendar {
+  background: rgba(255, 247, 239, 0.9) !important;
+}
+
+
+.elegant-calendar .ant-picker-panel {
+  border: 1px solid var(--calendar-border) !important;
+  border-radius: 16px !important;
+  background: rgba(255, 247, 239, 0.9) !important;
+}
+
+.ant-select-item-option-active,
+.ant-select-item-option-selected {
+  background: rgba(219, 163, 87, 0.18) !important;
+}
+
+.elegant-calendar .ant-picker-cell-inner {
+  color: var(--calendar-text);
+}
+
+.elegant-calendar .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+  border: 1px solid var(--calendar-accent) !important;
+}
+
+.elegant-calendar .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+  background: var(--calendar-accent) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+}
+
+
+
+
+.overflow-y-auto::-webkit-scrollbar {
+  width: 8px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: rgba(240, 224, 208, 0.5);
+  border-radius: 999px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(219, 163, 87, 0.6);
+  border-radius: 999px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(219, 163, 87, 0.8);
+}
+
+.overflow-y-auto {
+  scrollbar-color: rgba(219, 163, 87, 0.7) rgba(240, 224, 208, 0.6);
+  scrollbar-width: thin;
+}
+
+/* Desktop optimizations */
+  @media (min-width: 1025px) {
+    html {
+      font-size: 16px;
+    }
+  }
+
+
+
+
+
+

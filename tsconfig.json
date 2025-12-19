@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"],
+      "lucide-react": ["./src/shims/lucide-react"]
     }
   },
   "include": [
