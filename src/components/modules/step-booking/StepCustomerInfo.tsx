@@ -51,7 +51,7 @@ const StepCustomerInfo = () => {
           });
 
         if (response.data && response.data.length > 0) {
-          const customer = response.data[0].attributes;
+          const customer = response.data[0];
           setCustomerInfo({
             name: customer.customer_name || "",
             email: customer.customer_email || "",
@@ -82,7 +82,8 @@ const StepCustomerInfo = () => {
     const isCustomerInfoValid = validateCustomerInfo();
     if (!isCustomerInfoValid) {
       toast.error("Please fill in required fields.", {
-        description: "Name and phone are required (email must be valid if provided).",
+        description:
+          "Name and phone are required (email must be valid if provided).",
         duration: 4000,
       });
       return;
@@ -102,17 +103,23 @@ const StepCustomerInfo = () => {
       }
 
       if (selectedStaff && !selectedStaff.documentId) {
-        toast.error("Selected staff is missing documentId. Please re-select staff.");
+        toast.error(
+          "Selected staff is missing documentId. Please re-select staff."
+        );
         return;
       }
 
       const missingServiceDocId = selectedServices.find((s) => !s.documentId);
       if (missingServiceDocId) {
-        toast.error("Selected service is missing documentId. Please re-select services.");
+        toast.error(
+          "Selected service is missing documentId. Please re-select services."
+        );
         return;
       }
 
-      const serviceDocumentIds = selectedServices.map((service) => service.documentId);
+      const serviceDocumentIds = selectedServices.map(
+        (service) => service.documentId
+      );
       const staffDocumentId = selectedStaff?.documentId || null;
 
       setIsCreatingBooking(true);
@@ -135,21 +142,41 @@ const StepCustomerInfo = () => {
       const isRecord = (value: unknown): value is Record<string, unknown> =>
         typeof value === "object" && value !== null;
 
-      const asBooking = (value: unknown): BookingCreateResponse["data"] | null => {
+      const asBooking = (
+        value: unknown
+      ): BookingCreateResponse["data"] | null => {
         if (!isRecord(value)) return null;
         if (typeof value.id !== "number") return null;
         if (typeof value.name !== "string") return null;
-        if (!(value.email === null || typeof value.email === "string")) return null;
+        if (!(value.email === null || typeof value.email === "string"))
+          return null;
         if (typeof value.phone !== "string") return null;
         if (typeof value.booking_date !== "string") return null;
         if (typeof value.booking_time !== "string") return null;
-        if (!(value.booking_end === null || typeof value.booking_end === "string")) return null;
-        if (!(value.booking_status === null || typeof value.booking_status === "string")) return null;
-        if (!(value.booking_code === null || typeof value.booking_code === "string")) return null;
+        if (
+          !(value.booking_end === null || typeof value.booking_end === "string")
+        )
+          return null;
+        if (
+          !(
+            value.booking_status === null ||
+            typeof value.booking_status === "string"
+          )
+        )
+          return null;
+        if (
+          !(
+            value.booking_code === null ||
+            typeof value.booking_code === "string"
+          )
+        )
+          return null;
         return value as unknown as BookingCreateResponse["data"];
       };
 
-      const normalizeBookingCreateResponse = (raw: unknown): BookingCreateResponse | null => {
+      const normalizeBookingCreateResponse = (
+        raw: unknown
+      ): BookingCreateResponse | null => {
         if (!isRecord(raw)) return null;
 
         const direct = asBooking(raw.data);
@@ -193,7 +220,7 @@ const StepCustomerInfo = () => {
             booking_date: bookingPayload.bookingDate,
             booking_time: bookingPayload.bookingTime,
             booking_end: null,
-            booking_status: "waiting_approve",
+            booking_status: "waiting for approve",
             booking_code: null,
           },
         } satisfies BookingCreateResponse);
@@ -203,13 +230,17 @@ const StepCustomerInfo = () => {
       setShowConfirmation(false);
 
       toast.success("Booking created successfully!", {
-        description: `Your booking code: ${bookingResponse.data.booking_code || "N/A"}`,
+        description: `Your booking code: ${
+          bookingResponse.data.booking_code || "N/A"
+        }`,
         duration: 5000,
       });
-
     } catch (error) {
       toast.error("Failed to book appointment. Please try again.", {
-        description: error instanceof Error ? error.message : "There was an error processing your booking.",
+        description:
+          error instanceof Error
+            ? error.message
+            : "There was an error processing your booking.",
         duration: 5000,
       });
     } finally {
@@ -295,20 +326,12 @@ const StepCustomerInfo = () => {
             <label className="flex items-center gap-2 text-sm font-medium">
               <User className="w-4 h-4" />
               Full Name <span className="text-red-500">*</span>
-              {customerFound && customerInfo.name && (
-                <span className="ml-auto text-xs text-green-600 flex items-center gap-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-green-600" />
-                  Auto-filled
-                </span>
-              )}
             </label>
             <input
               type="text"
               value={customerInfo.name}
               onChange={(e) => handleInputChange("name", e.target.value)}
-              className={`w-full px-4 py-3.5 rounded-xl border bg-card ${
-                customerFound && customerInfo.name ? "border-green-500" : "border-black/20"
-              }`}
+              className={`w-full px-4 py-3.5 rounded-xl border bg-card border-black/20`}
               placeholder="John Doe"
             />
           </div>
@@ -318,20 +341,12 @@ const StepCustomerInfo = () => {
             <label className="flex items-center gap-2 text-sm font-medium">
               <Mail className="w-4 h-4" />
               Email Address
-              {customerFound && customerInfo.email && (
-                <span className="ml-auto text-xs text-green-600 flex items-center gap-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-green-600" />
-                  Auto-filled
-                </span>
-              )}
             </label>
             <input
               type="email"
               value={customerInfo.email}
               onChange={(e) => handleInputChange("email", e.target.value)}
-              className={`w-full px-4 py-3.5 rounded-xl border bg-card ${
-                customerFound && customerInfo.email ? "border-green-500" : "border-black/20"
-              }`}
+              className={`w-full px-4 py-3.5 rounded-xl border bg-card border-black/20`}
               placeholder="john@example.com"
             />
           </div>

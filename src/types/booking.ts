@@ -14,7 +14,7 @@ export interface Booking {
   booking_time: string; // HH:mm:ss
   booking_end: string | null; // HH:mm:ss
 
-  booking_status: "waiting_approve" | "approved" | "reject" | "complete" | null;
+  booking_status: "waiting for approve" | "approved" | "reject" | "complete" | null;
   booking_code: string | null;
 }
 
@@ -23,18 +23,23 @@ export interface BookingCreateResponse {
   meta?: unknown;
 }
 
-export interface CustomerAttributes {
+// export interface CustomerAttributes {
+//   customer_name: string;
+//   customer_phone: string;
+//   customer_email: string;
+//   createdAt: string;
+//   updatedAt: string;
+//   publishedAt: string;
+// }
+
+export interface Customer {
+  id: number;
   customer_name: string;
   customer_phone: string;
   customer_email: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-}
-
-export interface Customer {
-  id: number;
-  attributes: CustomerAttributes;
 }
 
 export interface CustomerResponse {

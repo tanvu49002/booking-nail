@@ -33,7 +33,7 @@ export default function CongratulationPopup({
   const getStatusBadge = (status?: string | null) => {
     if (!status) return null
     const statusConfig = {
-      waiting_approve: {
+      "waiting for approve": {
         label: "Waiting Approval",
         className: "bg-yellow-50 text-yellow-700 border-yellow-200",
         icon: <Clock className="w-3.5 h-3.5" />,
